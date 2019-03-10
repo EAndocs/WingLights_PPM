@@ -2,7 +2,7 @@
 
 #define LED_PIN 2
 #define PWM_PIN 3
-#define NUM_LEDS 10
+#define NUM_LEDS 30
 #define LED_TYPE WS2812B
 #define COLOR_ORDER GRB
 
@@ -14,6 +14,8 @@ byte operatingMode;   // 0 = solid colors, 1 = patterns
 byte patternNumber;
 
 void setup() {
+  //Serial.begin(9600);
+  
   // Initialize FastLED
   FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS);  // The LEDs I'm using are GRB so init'ing them this way makes the RGB numbers correspond correctly
 
@@ -66,7 +68,7 @@ void loop() {
       UpdatePattern();
 
       if (patternNumber == 1) {
-        SolidColorRGB(0, 0, 0);
+        Pattern1();
       }
       else if (patternNumber == 2) {
         Pattern2();
