@@ -123,33 +123,37 @@ void loop() {
 
   // Pattern 5 - Scrolling rainbow
   
-  unsigned long previousMillis = 0;
+  unsigned long topPreviousMillis = 0;
+  unsigned long bottomPreviousMillis = 0;
   unsigned long topStepCounter = 0;
   unsigned long bottomStepCounter = 0;
-  int totalDuration = 1000;  // Define how long it should take to finish the pattern once, in miliseconds
+  int totalDuration = 2000;  // Define how long it should take to finish the pattern once, in miliseconds
   int topLoopInterval = totalDuration / TOP_LED_COUNT;  // Calculate how long each iteration should take
-  int bottomLoopInterval = totalDuration / TOP_LED_COUNT;  // Calculate how long each iteration should take
+  int bottomLoopInterval = totalDuration / BOTTOM_LED_COUNT;  // Calculate how long each iteration should take
 
   while (patternNumber == 5) {
     unsigned long currentMillis = millis();
     
-    if (currentMillis - previousMillis >= topLoopInterval) {
+    if (currentMillis - topPreviousMillis >= topLoopInterval) {
       for (int i = 0; i < TOP_LED_COUNT; i++) {
         topLEDs[(i + topStepCounter) % TOP_LED_COUNT] = CHSV((255 / (TOP_LED_COUNT - 1)) * i, 255, 255);
       }
       FastLED.show();
       topStepCounter++;
+      topPreviousMillis = currentMillis;
     } 
-  
-    if (currentMillis - previousMillis >= bottomLoopInterval) {
+
+    if (currentMillis - bottomPreviousMillis >= bottomLoopInterval) {
       for (int i = 0; i < BOTTOM_LED_COUNT; i++) {
         bottomLEDs[(i + bottomStepCounter) % BOTTOM_LED_COUNT] = CHSV((255 / (BOTTOM_LED_COUNT - 1)) * i, 255, 255);
       }
       FastLED.show();
       bottomStepCounter++;
+      bottomPreviousMillis = currentMillis;
     } 
-    previousMillis = currentMillis;
   }
+
+  // Pattern 6 -
 
   // Pattern 7 -
 
