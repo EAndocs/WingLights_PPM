@@ -145,7 +145,43 @@ void loop() {
   
 
 
-  // Pattern 6 -  
+  // Pattern 6 -
+
+/*
+while (patternNumber == 6) {
+  int patternLengthSec = 1;
+  unsigned long previousMillis = 0;
+  unsigned long currentMillis;
+
+  // Start with a static rainbow that takes up the whole LED strip
+  for (int i = 0; i < TOP_LED_COUNT; i++) {
+    topLEDs[i] = HSV((192 / TOP_LED_COUNT) * i), 255, 255);
+    FastLED.show();
+  }
+
+  
+  
+}
+*/
+
+unsigned long previousMillis = 0;
+int totalDuration = 1000;  // Define how long it should take to finish the pattern once, in miliseconds
+int loopInterval = totalDuration / TOP_LED_COUNT;  // Calculate how long each iteration should take
+while (patternNumber == 6) {
+  unsigned long currentMillis = millis();
+  
+  if (currentMillis - previousMillis >= loopInterval) {
+    for (int i = 0; i < TOP_LED_COUNT; i++) {
+      for (int j = 0; j < TOP_LED_COUNT; j++) {
+        int h = (i + j) % TOP_LED_COUNT;
+        topLEDs[h] = CHSV((192 / (TOP_LED_COUNT - 1)) * j, 255, 255);
+      }
+      FastLED.show();
+      previousMillis = currentMillis;
+    }
+  }
+}
+    
 
   // Pattern 7 -
 
