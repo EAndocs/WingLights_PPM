@@ -121,91 +121,35 @@ void loop() {
     FastLED.show();
   }
 
-  // Pattern 5 - Scrolling rainbow - NEEDS WORK
-/*
-  if (patternNumber == 5) {
-    for (int i = 0; i < TOP_LED_COUNT; i++) {
-      for (int j = 0; j < TOP_LED_COUNT; j++) {
-        int h = (i + j) % TOP_LED_COUNT;
-        topLEDs[h] = CHSV((192 / (TOP_LED_COUNT - 1)) * j, 255, 255);
-      }
-      FastLED.show();
-      delay(40);
-    }
-      
-    for (int i = 0; i < BOTTOM_LED_COUNT; i++) {
-      for (int j = 0; j < BOTTOM_LED_COUNT; j++) {
-        int h = (i + j) % BOTTOM_LED_COUNT;
-        bottomLEDs[h] = CHSV((192 / (BOTTOM_LED_COUNT - 1)) * j, 255, 255);
-      }
-      FastLED.show();
-     delay(40);
-    }
-  }
+  // Pattern 5 - Scrolling rainbow
   
-
-
-  // Pattern 6 -
-
-/*
-while (patternNumber == 6) {
-  int patternLengthSec = 1;
   unsigned long previousMillis = 0;
-  unsigned long currentMillis;
-  // Start with a static rainbow that takes up the whole LED strip
-  for (int i = 0; i < TOP_LED_COUNT; i++) {
-    topLEDs[i] = HSV((192 / TOP_LED_COUNT) * i), 255, 255);
-    FastLED.show();
-  }
-  
-  
-}
+  unsigned long topStepCounter = 0;
+  unsigned long bottomStepCounter = 0;
+  int totalDuration = 1000;  // Define how long it should take to finish the pattern once, in miliseconds
+  int topLoopInterval = totalDuration / TOP_LED_COUNT;  // Calculate how long each iteration should take
+  int bottomLoopInterval = totalDuration / TOP_LED_COUNT;  // Calculate how long each iteration should take
 
-unsigned long previousMillis = 0;
-int totalDuration = 1000;  // Define how long it should take to finish the pattern once, in miliseconds
-int loopInterval = totalDuration / TOP_LED_COUNT;  // Calculate how long each iteration should take
-while (patternNumber == 6) {
-  unsigned long currentMillis = millis();
-  
-  if (currentMillis - previousMillis >= 500) {
-    for (int i = 0; i < TOP_LED_COUNT; i++) {
-      for (int j = 0; j < TOP_LED_COUNT; j++) {
-        int h = (i + j) % TOP_LED_COUNT;
-        topLEDs[h] = CHSV((192 / (TOP_LED_COUNT - 1)) * j, 255, 255);
-      }
-      //FastLED.show();
-      previousMillis = currentMillis;
-    }
-  }
-  FastLED.show();
-}
-  
-
-
-*/
-
-unsigned long stepCounter = 0;
-unsigned long previousMillis = 0;
-int totalDuration = 1000;  // Define how long it should take to finish the pattern once, in miliseconds
-int loopInterval = totalDuration / TOP_LED_COUNT;  // Calculate how long each iteration should take
-
-while (patternNumber == 6) {
-  unsigned long currentMillis = millis();
-  if (currentMillis - previousMillis >= loopInterval) {
-   
-    for (int i = 0; i < TOP_LED_COUNT; i++) {
-      topLEDs[(i + stepCounter) % TOP_LED_COUNT] = CHSV(((255 / TOP_LED_COUNT) * i), 255, 255);
-      //FastLED.show();
-    }
-    FastLED.show();
+  while (patternNumber == 5) {
+    unsigned long currentMillis = millis();
     
-    stepCounter++;
+    if (currentMillis - previousMillis >= topLoopInterval) {
+      for (int i = 0; i < TOP_LED_COUNT; i++) {
+        topLEDs[(i + topStepCounter) % TOP_LED_COUNT] = CHSV((255 / (TOP_LED_COUNT - 1)) * i, 255, 255);
+      }
+      FastLED.show();
+      topStepCounter++;
+    } 
+  
+    if (currentMillis - previousMillis >= bottomLoopInterval) {
+      for (int i = 0; i < BOTTOM_LED_COUNT; i++) {
+        bottomLEDs[(i + bottomStepCounter) % BOTTOM_LED_COUNT] = CHSV((255 / (BOTTOM_LED_COUNT - 1)) * i, 255, 255);
+      }
+      FastLED.show();
+      bottomStepCounter++;
+    } 
     previousMillis = currentMillis;
-}
-
-  
-}
-  
+  }
 
   // Pattern 7 -
 
