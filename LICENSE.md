@@ -1,6 +1,6 @@
 BSD 2-Clause License
 
-Copyright (c) 2019, Edward Andocs
+Copyright (c) 2020, Edward Andocs
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
